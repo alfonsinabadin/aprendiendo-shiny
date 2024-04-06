@@ -1,0 +1,22 @@
+---
+title: "2 - User Interface"
+format: gfm
+---
+
+# Pregunta de Múltiple Elección
+
+**Pregunta:** ¿Cuál es la capital de Francia?
+
+a) Roma  
+b) Berlín  
+c) París  
+d) Madrid  
+
+<details>
+<summary>Ver respuesta</summary>
+
+La respuesta correcta es: c) París.
+
+Explicación:
+París es la capital de Francia. Es una ciudad icónica conocida por la Torre Eiffel, el Museo del Louvre y muchos otros monumentos famosos.
+</details>
