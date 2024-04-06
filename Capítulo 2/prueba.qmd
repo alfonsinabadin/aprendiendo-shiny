@@ -1,8 +1,3 @@
----
-title: "2 - User Interface"
-format: gfm
----
-
 # Pregunta de Múltiple Elección
 
 **Pregunta:** ¿Cuál es la capital de Francia?
@@ -19,4 +14,44 @@ La respuesta correcta es: c) París.
 
 Explicación:
 París es la capital de Francia. Es una ciudad icónica conocida por la Torre Eiffel, el Museo del Louvre y muchos otros monumentos famosos.
+</details>
+
+---
+
+# Pregunta de Múltiple Elección
+
+**Pregunta:** ¿Cuál es la capital de Alemania?
+
+a) Roma  
+b) Berlín  
+c) París  
+d) Madrid  
+
+<details>
+<summary>Ver respuesta</summary>
+
+La respuesta correcta es: b) Berlín.
+
+Explicación:
+Berlín es la capital de Alemania. Es una ciudad vibrante con una rica historia y una gran cantidad de sitios culturales y monumentos.
+</details>
+
+---
+
+# Pregunta de Múltiple Elección
+
+**Pregunta:** ¿Cuál es la capital de Italia?
+
+a) Roma  
+b) Berlín  
+c) París  
+d) Madrid  
+
+<details>
+<summary>Ver respuesta</summary>
+
+La respuesta correcta es: a) Roma.
+
+Explicación:
+Roma es la capital de Italia y una de las ciudades más antiguas y fascinantes del mundo, conocida por su historia, arte y arquitectura.
 </details>
