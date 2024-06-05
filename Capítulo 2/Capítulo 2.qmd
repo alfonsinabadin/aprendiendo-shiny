@@ -147,3 +147,68 @@ ui <- fluidPage(
 3. Crear un slider para seleccionar valores entre 0 y 100 donde el intervalo entre cada selección es 5. Después, agregar una animación en el input para que cuando el usuario presione el botón _play_ el slider se mueva por el rango automático.
 
 4. Si se tiene una lista larga, una técnica práctica es crear subtítulos que separen la lista en partes. Leer la documentación de `selectInput()` para saber cómo.
+
+## Outputs
+
+Al igual que las entradas, las salidas toman un ID único como primer argumento. Hay tres tipos principales de salida, que corresponden a las tres cosas que normalmente se incluyen en un informe: texto, tablas y gráficos. 
+
+### Texto
+
+Muestra una salida de texto en la consola con `textOutput()` y  `verbatimTextOutput()`.
+
+```{r eval=FALSE}
+## Defino el output de texto plano "text" y de texto en código "code"
+ui <- fluidPage(
+  textOutput("text"),
+  verbatimTextOutput("code")
+)
+
+## Defino el texto con renderText() y el códgio con el renderPrint
+server <- function(input, output, session) {
+  output$text <- renderText({ 
+    "Hello friend!" 
+  })
+  output$code <- renderPrint({ 
+    summary(1:10) 
+  })
+}
+```
+
+- `renderText()` combina el resultado en una sola cadena, y generalmente se empareja con `textOutput()`
+- `renderPrint()` imprime el resultado, como si estuvieras en una consola R, y suele estar emparejado con `verbatimTextOutput()`
+
+### Tablas
+
+Hay dos opciones para mostrar marcos de datos en tablas:
+
+- `tableOutput()` y `renderTable()` renderiza una tabla estática de datos, mostrando todos los datos a la vez. Es más útil para resúmenes pequeños y fijos.
+
+- `dataTableOutput()` y `renderDataTable()` renderiza una tabla dinámica, que muestra un número fijo de filas junto con controles para cambiar qué filas son visibles.
+
+```{r eval=FALSE}
+ui <- fluidPage(
+  tableOutput("static"),
+  dataTableOutput("dynamic")
+)
+server <- function(input, output, session) {
+  output$static <- renderTable(head(mtcars))
+  output$dynamic <- renderDataTable(mtcars, options = list(pageLength = 5))
+}
+```
+
+### Gráficos
+
+Se puede mostrar cualquier tipo de gráfico R (base, ggplot2 o de otro tipo) con `plotOutput()` y `renderPlot()`.
+
+```{r eval=FALSE}
+ui <- fluidPage(
+  plotOutput("plot", width = "400px")
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot(plot(1:5), res = 96)
+}
+```
+
+### Descargas
+
+Puede permitir que el usuario descargue un archivo con `downloadLink()` y `downloadButton()`. 
