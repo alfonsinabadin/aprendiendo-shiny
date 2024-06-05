@@ -1,0 +1,149 @@
+---
+title: "Capítulo 2 - UI básico"
+format: gfm
+---
+
+## Inputs
+
+Como vimos, usamos funciones como `sliderInput()`, `selectInput()`, `textInput()`, y `numericInput()` para insertar entradas en la espicificación del UI.
+
+### Estructura común
+
+Todas las funciones de input tienen un mismo argumento inicial: `inputId`. Este es el identificador utilizado para conectar el _front end_ con el _back end_: si pones un `inputID` llamado _"name"_, la función en el server va a acceder a él como `input$name`.
+
+El inputId tiene dos restricciones:
+
+- Tiene que ser un string simple que contenga sólo letras.
+
+- Debe ser único.
+
+La mayoría de las funciones de input tienen un segundo argumento: `label`. Este se usa para crear una etiqueta legible para el control. Shiny no pone restricciones en este string. 
+
+Los input tienen un tercer parámetro típico: `value`. Este permite un valor por defecto para el input.
+
+### Texto libre
+
+Colecta un string pequeño con `textInput()`, contraseñas con `passwordInput()` y párrafos con `textAreaInput()`.
+
+```{r results='hide', eval=FALSE, warning=FALSE, message=FALSE}
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  passwordInput("password", "What's your password?"),
+  textAreaInput("story", "Tell me about yourself", rows = 3)
+)
+```
+
+![](img1.png)
+
+Si uno se quiere asegurar de que el texto tiene ciertas propiedades, se puede usar una función de `validate()`, que se verá más adelante.
+
+### Números
+
+Colecta valores numéricos, en una caja de texto con `numericInput()` o con un slider con `sliderInput()`. Si se le pone un un vector de dos valores en `value` al slider, se selecciona un mínimo y máximo en la selección.
+
+```{r results='hide', eval=FALSE, message=FALSE, warning=FALSE}
+ui <- fluidPage(
+  numericInput("num", "Number one", value = 0, min = 0, max = 100),
+  sliderInput("num2", "Number two", value = 50, min = 0, max = 100),
+  sliderInput("rng", "Range", value = c(10, 20), min = 0, max = 100)
+)
+```
+
+![](img2.png)
+
+### Fechas
+
+Colecta un día único con `dateInput()` o un rango entre dos días con `dateRangeInput()`. Estos proveen un selector en calendario muy conveniente y tienen argumentos adicionales muy útiles como `datesdisabled` (fechas desabilitadadas) y `daysofweekdisabled` (días de la semana desabilitados) que permite restringir el conjunto de inputs válidos.
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, results='hide'}
+ui <- fluidPage(
+  dateInput("dob", "When were you born?"),
+  dateRangeInput("holiday", "When do you want to go on vacation next?")
+)
+```
+
+![](img3.png)
+
+### Opciones limitadas
+
+Permite que el usuario elija entre un conjunto preespecificado de opciones: con `selectInput()` o `radioButtons()`.
+
+```{r eval=FALSE}
+animals <- c("dog", "cat", "mouse", "bird", "other", "I hate animals")
+
+ui <- fluidPage(
+  selectInput("state", "What's your favourite state?", state.name),
+  radioButtons("animal", "What's your favourite animal?", animals)
+)
+```
+
+![](img4.png)
+
+Lo bueno de los _radio buttons_ es que permite usar caracteres no numéricos. Lo malo es que es preferible en listas cortas.
+
+```{r eval=FALSE}
+ui <- fluidPage(
+  radioButtons("rb", "Choose one:",
+    choiceNames = list(
+      icon("angry"),
+      icon("smile"),
+      icon("sad-tear")
+    ),
+    choiceValues = list("angry", "happy", "sad")
+  )
+)
+```
+
+![](img5.png)
+
+Lo bueno de las listas desplegables es que ocupan menos espacio y que puede utilizarse para selección múltiple.
+
+```{r eval=FALSE}
+ui <- fluidPage(
+  selectInput(
+    "state", "What's your favourite state?", state.name,
+    multiple = TRUE
+  )
+)
+```
+
+![](img6.png)
+
+### Importar archivos
+
+Permite al usuario importar un archivo
+
+```{r eval=FALSE}
+ui <- fluidPage(
+  fileInput("upload", NULL)
+)
+```
+
+![](img7.png)
+### Botones de acción
+
+Permite al usuario hacer una acción con las funciones `actionButton()` o `actionLink()`.
+
+```{r eval=FALSE}
+ui <- fluidPage(
+  actionButton("click", "Click me!"),
+  actionButton("drink", "Drink me!", icon = icon("cocktail"))
+)
+```
+
+![](img8.png)
+
+## Ejercicios
+
+1. Lograr este ui. Buscar la documentación de `textInput()`.
+
+![](img9.png)
+
+
+2. Lograr este ui. Buscar la documentación de `sliderInput()`. 
+
+![](img10.png)
+
+3. Crear un slider para seleccionar valores entre 0 y 100 donde el intervalo entre cada selección es 5. Después, agregar una animación en el input para que cuando el usuario presione el botón _play_ el slider se mueva por el rango automático.
+
+4. Si se tiene una lista larga, una técnica práctica es crear subtítulos que separen la lista en partes. Leer la documentación de `selectInput()` para saber cómo.
